@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:stackedprototype/ui/views/home/home_view.dart';
-import 'package:stackedprototype/ui/views/post_list/post_list_view.dart';
+import 'package:stacked_services/stacked_services.dart';
+import 'package:stackedprototype/app/locator.dart';
+import 'package:stackedprototype/app/router.gr.dart';
 
 void main() {
+  setupLocator();
   runApp(MyApp());
 }
 
@@ -11,12 +13,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Prototype Stacked with Qr code scanner',
-//      home: HomeView(),
-      initialRoute: HomeView.id,
-      routes: {
-        HomeView.id: (context) => HomeView(),
-        PostListView.id: (context) => PostListView(),
-      },
+      initialRoute: Routes.homeViewRoute,
+      onGenerateRoute: Router().onGenerateRoute,
+      navigatorKey: locator<NavigationService>().navigatorKey,
     );
   }
 }

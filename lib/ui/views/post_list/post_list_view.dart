@@ -12,14 +12,14 @@ class PostListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<PostListViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
-        body: model.posts.length == 0
+        body: model.isBusy
             ? Center(
                 child: CircularProgressIndicator(),
               )
             : ListView.builder(
                 itemBuilder: (context, index) => ListTile(
-                      title: Text(model.posts[index].title),
-                      subtitle: Text(model.posts[index].body),
+                      title: Text(model.data[index].title),
+                      subtitle: Text(model.data[index].body),
                     )),
       ),
       viewModelBuilder: () => PostListViewModel(),

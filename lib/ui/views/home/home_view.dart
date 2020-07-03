@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stackedprototype/ui/views/post_list/post_list_view.dart';
 
 import 'home_viewmodel.dart';
 
@@ -24,7 +23,7 @@ class HomeView extends StatelessWidget {
               padding: EdgeInsets.all(8),
               color: Colors.blue,
               onPressed: () {
-                Navigator.pushNamed(context, PostListView.id);
+                model.navigateToPostList();
               },
               child: Text('Show list of posts', style: TextStyle(color: Colors.white),),
             ),
@@ -34,7 +33,7 @@ class HomeView extends StatelessWidget {
             FlatButton(
               padding: EdgeInsets.all(8),
               color: Colors.blue,
-              onPressed: model.scanQrCode,
+              onPressed: () => model.scanQrCode(),
               child: Text('Scan QR code', style: TextStyle(color: Colors.white),),
             ),
             SizedBox(

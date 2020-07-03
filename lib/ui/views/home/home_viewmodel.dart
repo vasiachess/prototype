@@ -1,7 +1,14 @@
-import 'package:barcode_scan/barcode_scan.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
+import 'package:stackedprototype/app/locator.dart';
+import 'package:stackedprototype/app/router.gr.dart';
+import 'package:stackedprototype/services/qr_code_service.dart';
 
 class HomeViewModel extends BaseViewModel {
+
+  final NavigationService _navigationService = locator<NavigationService>();
+  final _qrCodeService = locator<QrCodeService>();
+
   String _title = 'Home View';
   String get title => '$_title $_counter';
 
@@ -16,10 +23,12 @@ class HomeViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  Future<void> scanQrCode() async {
-    var result = await BarcodeScanner.scan();
-    _scanResult = 'QR code content: ${result.rawContent}';
-    notifyListeners();
+  Future navigateToPostList() async {
+    await _navigationService.navigateTo(Routes.postListView);
+  }
+
+  Future scanQrCode() async {
+    _scanResult = await runBusyFuture(_qrCodeService.scanQrCode());
   }
 
 }
