@@ -7,6 +7,8 @@
 import 'package:get_it/get_it.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:stackedprototype/services/posts_service.dart';
+import 'package:stackedprototype/services/purchase_order_items_service.dart';
+import 'package:stackedprototype/services/purchase_orders_service.dart';
 import 'package:stackedprototype/services/qr_code_service.dart';
 import 'package:stackedprototype/services/third_party_services_module.dart';
 
@@ -17,6 +19,9 @@ void $initGetIt(GetIt g, {String environment}) {
   g.registerLazySingleton<NavigationService>(
       () => thirdPartyServicesModule.navigationService);
   g.registerLazySingleton<PostsService>(() => PostsService());
+  g.registerLazySingleton<PurchaseOrderItemsService>(
+      () => PurchaseOrderItemsService());
+  g.registerLazySingleton<PurchaseOrdersService>(() => PurchaseOrdersService());
   g.registerLazySingleton<QrCodeService>(() => QrCodeService());
 }
 

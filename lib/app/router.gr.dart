@@ -9,13 +9,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stackedprototype/ui/views/home/home_view.dart';
 import 'package:stackedprototype/ui/views/post_list/post_list_view.dart';
+import 'package:stackedprototype/ui/views/purchase_orders/purchase_orders_view.dart';
+import 'package:stackedprototype/ui/views/purchase_orders_items/purchase_order_items_view.dart';
 
 abstract class Routes {
   static const homeViewRoute = '/';
   static const postListView = '/post-list-view';
+  static const purchaseOrdersView = '/purchase-orders-view';
+  static const purchaseOrderItemsView = '/purchase-order-items-view';
   static const all = {
     homeViewRoute,
     postListView,
+    purchaseOrdersView,
+    purchaseOrderItemsView,
   };
 }
 
@@ -50,6 +56,26 @@ class Router extends RouterBase {
           builder: (context) => PostListView(key: typedArgs.key),
           settings: settings,
         );
+      case Routes.purchaseOrdersView:
+        if (hasInvalidArgs<PurchaseOrdersViewArguments>(args)) {
+          return misTypedArgsRoute<PurchaseOrdersViewArguments>(args);
+        }
+        final typedArgs = args as PurchaseOrdersViewArguments ??
+            PurchaseOrdersViewArguments();
+        return MaterialPageRoute<dynamic>(
+          builder: (context) => PurchaseOrdersView(key: typedArgs.key),
+          settings: settings,
+        );
+      case Routes.purchaseOrderItemsView:
+        if (hasInvalidArgs<PurchaseOrderItemsViewArguments>(args)) {
+          return misTypedArgsRoute<PurchaseOrderItemsViewArguments>(args);
+        }
+        final typedArgs = args as PurchaseOrderItemsViewArguments ??
+            PurchaseOrderItemsViewArguments();
+        return MaterialPageRoute<dynamic>(
+          builder: (context) => PurchaseOrderItemsView(key: typedArgs.key),
+          settings: settings,
+        );
       default:
         return unknownRoutePage(settings.name);
     }
@@ -70,4 +96,16 @@ class HomeViewArguments {
 class PostListViewArguments {
   final Key key;
   PostListViewArguments({this.key});
+}
+
+//PurchaseOrdersView arguments holder class
+class PurchaseOrdersViewArguments {
+  final Key key;
+  PurchaseOrdersViewArguments({this.key});
+}
+
+//PurchaseOrderItemsView arguments holder class
+class PurchaseOrderItemsViewArguments {
+  final Key key;
+  PurchaseOrderItemsViewArguments({this.key});
 }
