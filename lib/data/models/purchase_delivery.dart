@@ -1,19 +1,35 @@
-class PurchaseDelivery  {
+import 'package:stackedprototype/data/models/delivery_item.dart';
 
-  String id;
-  String date;
+class PurchaseDelivery {
+  int id;
+  String createDate;
+  String scheduledDate;
+  List<DeliveryItem> deliveryItems;
 
-  PurchaseDelivery ({this.id, this.date});
+  PurchaseDelivery(
+      {this.id, this.createDate, this.scheduledDate, this.deliveryItems});
 
-  PurchaseDelivery .fromJson(Map<String, dynamic> json) {
+  PurchaseDelivery.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    date = json['date'];
+    createDate = json['create_date'];
+    scheduledDate = json['scheduled_date'];
+    if (json['delivery_items'] != null) {
+      deliveryItems = new List<DeliveryItem>();
+      json['delivery_items'].forEach((v) {
+        deliveryItems.add(new DeliveryItem.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['date'] = this.date;
+    data['create_date'] = this.createDate;
+    data['scheduled_date'] = this.scheduledDate;
+    if (this.deliveryItems != null) {
+      data['delivery_items'] =
+          this.deliveryItems.map((v) => v.toJson()).toList();
+    }
     return data;
   }
 }

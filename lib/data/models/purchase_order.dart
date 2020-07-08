@@ -1,22 +1,19 @@
+import 'order.dart';
+
 class PurchaseOrder {
+  Order order;
 
-  String id;
-  String supplier;
-  String orderDate;
-
-  PurchaseOrder({this.id, this.supplier, this.orderDate});
+  PurchaseOrder({this.order});
 
   PurchaseOrder.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    supplier = json['supplier'];
-    orderDate = json['orderDate'];
+    order = json['order'] != null ? new Order.fromJson(json['order']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['supplier'] = this.supplier;
-    data['orderDate'] = this.orderDate;
+    if (this.order != null) {
+      data['order'] = this.order.toJson();
+    }
     return data;
   }
 }
