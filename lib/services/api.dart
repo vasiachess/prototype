@@ -19,19 +19,26 @@ class Api {
 
   Future<String> postAuthenticate() async {
 
-    Map map = {
+    String sessionId = '';
+    Map<String, dynamic> map = {
       'params': {'login': 'admin', 'password': 'admin@123', 'db': 'Tahakom_POC_API'},
     };
     var body = json.encode(map);
+//    String jsonBody = '"params":{"login":"admin","password":"admin@123","db":"Tahakom_POC_API"}';
 
     var response = await client.post('$baseUrl/web/session/authenticate', body: body);
-    var parsed = json.decode(response.body);
-    final auth = AuthResponse.fromJson(parsed);
 
-    print('Response Authenticate status: ${response.statusCode}');
-    print('Session Id: ${auth.sessionId}');
+    if (response.statusCode == 200) {
+      var parsed = json.decode(response.body);
+      final auth = AuthResponse.fromJson(parsed);
+      sessionId = auth.sessionId;
+      print('Response Authenticate status: ${response.statusCode}');
+      print('Session Id: ${auth.sessionId}');
+    } else {
+      print('Request failed with status: ${response.statusCode}, ${response.body},.');
+    }
 
-    return auth.sessionId;
+    return sessionId;
   }
 
   Future<List<PurchaseOrder>> getPurchaseOrderList(String sessionId) async {

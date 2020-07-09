@@ -18,11 +18,11 @@ class PurchaseOrdersView extends StatelessWidget {
             : ListView.builder(
             itemCount: model.data.length,
             itemBuilder: (context, index) => ListTile(
-              title: Text(model.data[index].supplier),
-              subtitle: Text(model.data[index].orderDate),
-              trailing: Text(model.data[index].id),
+              title: Text(model.data[index].order.supplier),
+              subtitle: Text(model.data[index].order.dateOrder),
+              trailing: Text(model.data[index].order.name),
               onTap: (){
-                model.navigateToPurchaseOrderItems(model.data[index].id);
+                model.navigateToPurchaseOrderItems(model.data[index].order);
               },
             )),
       ),

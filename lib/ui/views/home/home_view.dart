@@ -23,9 +23,39 @@ class HomeView extends StatelessWidget {
               padding: EdgeInsets.all(8),
               color: Colors.blue,
               onPressed: () {
-                model.navigateToPurchaseOrders();
+                model.loginUser();
               },
-              child: Text('Show purchase orders', style: TextStyle(color: Colors.white),),
+              child: Text('Login', style: TextStyle(color: Colors.white),),
+            ),
+            Text(model.sessionId),
+            SizedBox(
+              height: 16,
+            ),
+            Row(
+              children: <Widget>[
+                SizedBox(
+                    width: 16
+                ),
+                FlatButton(
+                  padding: EdgeInsets.all(8),
+                  color: Colors.blue,
+                  onPressed: () {
+                    model.navigateToPurchaseOrders();
+                  },
+                  child: Text('Show purchase orders', style: TextStyle(color: Colors.white),),
+                ),
+                SizedBox(
+                  width: 16
+                ),
+                FlatButton(
+                  padding: EdgeInsets.all(8),
+                  color: Colors.blue,
+                  onPressed: () {
+                    model.navigateToPurchaseOrders();
+                  },
+                  child: Text('Show purchase delivery', style: TextStyle(color: Colors.white),),
+                ),
+              ],
             ),
             SizedBox(
               height: 24,
