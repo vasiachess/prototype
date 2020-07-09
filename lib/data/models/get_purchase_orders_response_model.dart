@@ -2,7 +2,7 @@ import 'package:stackedprototype/data/models/purchase_order.dart';
 
 class GetPurchaseOrderListResponse {
   String jsonrpc;
-  Null id;
+  int id;
   Result result;
 
   GetPurchaseOrderListResponse({this.jsonrpc, this.id, this.result});
@@ -33,9 +33,9 @@ class Result {
 
   Result.fromJson(Map<String, dynamic> json) {
     status = json['status'];
-    if (json['purchase_order'] != null) {
+    if (json['purchase_orders'] != null) {
       purchaseOrders = new List<PurchaseOrder>();
-      json['purchase_order'].forEach((v) {
+      json['purchase_orders'].forEach((v) {
         purchaseOrders.add(new PurchaseOrder.fromJson(v));
       });
     }
@@ -45,7 +45,7 @@ class Result {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['status'] = this.status;
     if (this.purchaseOrders != null) {
-      data['purchase_order'] =
+      data['purchase_orders'] =
           this.purchaseOrders.map((v) => v.toJson()).toList();
     }
     return data;

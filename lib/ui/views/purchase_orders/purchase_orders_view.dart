@@ -5,7 +5,7 @@ import 'package:stackedprototype/ui/views/purchase_orders/purchase_orders_viewmo
 
 class PurchaseOrdersView extends StatelessWidget {
   const PurchaseOrdersView({Key key}) : super(key: key);
-  static const String id = 'posts_screen';
+  static const String id = 'purchase_orders_screen';
 
   @override
   Widget build(BuildContext context) {

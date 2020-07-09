@@ -1,8 +1,8 @@
 class OrderItem {
   int id;
   String name;
-  int orderedQty;
-  int receivedQty;
+  double orderedQty;
+  double receivedQty;
 
   OrderItem({this.id, this.name, this.orderedQty, this.receivedQty});
 

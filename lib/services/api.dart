@@ -43,8 +43,8 @@ class Api {
   Future<List<PurchaseOrder>> getPurchaseOrderList(String sessionId) async {
 
     var purchaseOrders = List<PurchaseOrder>();
-    String jsonBody = '"params":{}';
-    var response = await client.get('$baseUrl/purchase/order/', headers: {'Content-Type': 'application/json', '$headerKey': '$sessionId'});
+    String jsonBody = '{"params":{}}';
+    var response = await client.post('$baseUrl/purchase/orders/', headers: {'Content-Type': 'application/json', '$headerKey': '$sessionId'}, body: jsonBody);
 
     if (response.statusCode == 200) {
       var parsed = json.decode(response.body);

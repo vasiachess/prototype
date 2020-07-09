@@ -7,6 +7,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:stackedprototype/data/models/order.dart';
 import 'package:stackedprototype/ui/views/home/home_view.dart';
 import 'package:stackedprototype/ui/views/post_list/post_list_view.dart';
 import 'package:stackedprototype/ui/views/purchase_orders/purchase_orders_view.dart';
@@ -67,13 +68,13 @@ class Router extends RouterBase {
           settings: settings,
         );
       case Routes.purchaseOrderItemsView:
-        if (hasInvalidArgs<PurchaseOrderItemsViewArguments>(args)) {
+        if (hasInvalidArgs<PurchaseOrderItemsViewArguments>(args,
+            isRequired: true)) {
           return misTypedArgsRoute<PurchaseOrderItemsViewArguments>(args);
         }
-        final typedArgs = args as PurchaseOrderItemsViewArguments ??
-            PurchaseOrderItemsViewArguments();
+        final typedArgs = args as PurchaseOrderItemsViewArguments;
         return MaterialPageRoute<dynamic>(
-          builder: (context) => PurchaseOrderItemsView(key: typedArgs.key),
+          builder: (context) => PurchaseOrderItemsView(order: typedArgs.order),
           settings: settings,
         );
       default:
@@ -106,6 +107,6 @@ class PurchaseOrdersViewArguments {
 
 //PurchaseOrderItemsView arguments holder class
 class PurchaseOrderItemsViewArguments {
-  final Key key;
-  PurchaseOrderItemsViewArguments({this.key});
+  final Order order;
+  PurchaseOrderItemsViewArguments({@required this.order});
 }

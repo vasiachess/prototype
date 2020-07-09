@@ -15,7 +15,7 @@ class PurchaseOrdersViewModel extends FutureViewModel<List<PurchaseOrder>> {
   Future<List<PurchaseOrder>> futureToRun() => _purchaseOrdersService.getPurchaseOrders();
 
   Future navigateToPurchaseOrderItems(Order order) async {
-    await _navigationService.navigateTo(Routes.purchaseOrderItemsView, arguments: order);
+    await _navigationService.navigateTo(Routes.purchaseOrderItemsView, arguments: PurchaseOrderItemsViewArguments(order: order),);
   }
 
 }

@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stackedprototype/data/models/order.dart';
 import 'package:stackedprototype/ui/views/purchase_orders_items/purchase_order_items_viewmodel.dart';
 
 class PurchaseOrderItemsView extends StatelessWidget {
-  const PurchaseOrderItemsView({Key key}) : super(key: key);
-  static const String id = 'posts_screen';
+  final Order order;
+  const PurchaseOrderItemsView({@required this.order});
+  static const String id = 'purchase_order_items_screen';
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +18,11 @@ class PurchaseOrderItemsView extends StatelessWidget {
           child: CircularProgressIndicator(),
         )
             : ListView.builder(
-            itemCount: model.data.length,
+            itemCount: order.orderItems.length,
             itemBuilder: (context, index) => ListTile(
-              title: Text(model.data[index].materialItem.nameEn),
-              subtitle: Text('Ordered: ${model.data[index].quantityOrdered}, received: ${model.data[index].quantityReceived}'),
-              trailing: Text(model.data[index].materialItem.unitOfMeasure),
+              title: Text(order.orderItems[index].name),
+              subtitle: Text('Ordered: ${order.orderItems[index].orderedQty}, received: ${order.orderItems[index].receivedQty}'),
+              trailing: Text(order.dateOrder),
             )),
       ),
       viewModelBuilder: () => PurchaseOrderItemsViewModel(),
