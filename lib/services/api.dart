@@ -24,16 +24,15 @@ class Api {
       'params': {'login': 'admin', 'password': 'admin@123', 'db': 'Tahakom_POC_API'},
     };
     var body = json.encode(map);
-//    String jsonBody = '"params":{"login":"admin","password":"admin@123","db":"Tahakom_POC_API"}';
 
-    var response = await client.post('$baseUrl/web/session/authenticate', body: body);
+    var response = await client.post('$baseUrl/web/session/authenticate', headers: {'Content-Type': 'application/json'}, body: body);
 
     if (response.statusCode == 200) {
       var parsed = json.decode(response.body);
       final auth = AuthResponse.fromJson(parsed);
-      sessionId = auth.sessionId;
+      sessionId = auth.result.sessionId;
       print('Response Authenticate status: ${response.statusCode}');
-      print('Session Id: ${auth.sessionId}');
+      print('Session Id: ${auth.result.sessionId}');
     } else {
       print('Request failed with status: ${response.statusCode}, ${response.body},.');
     }
@@ -44,7 +43,8 @@ class Api {
   Future<List<PurchaseOrder>> getPurchaseOrderList(String sessionId) async {
 
     var purchaseOrders = List<PurchaseOrder>();
-    var response = await http.get('$baseUrl/purchase/order/', headers: {'$headerKey': sessionId});
+    String jsonBody = '"params":{}';
+    var response = await client.get('$baseUrl/purchase/order/', headers: {'Content-Type': 'application/json', '$headerKey': '$sessionId'});
 
     if (response.statusCode == 200) {
       var parsed = json.decode(response.body);
@@ -59,7 +59,7 @@ class Api {
 
   Future<Material> getMaterialItem(String sessionId, int itemId) async {
 
-    var response = await http.get('$baseUrl/material/$itemId', headers: {'$headerKey': sessionId});
+    var response = await client.get('$baseUrl/material/$itemId', headers: {'$headerKey': sessionId});
 
     if (response.statusCode == 200) {
       var parsed = json.decode(response.body);
@@ -74,7 +74,7 @@ class Api {
 
   Future<List<PurchaseDelivery>> getPurchaseDelivery(String sessionId, int orderId) async {
 
-    var response = await http.get('$baseUrl/purchase/$orderId/pickings/', headers: {'$headerKey': sessionId});
+    var response = await client.get('$baseUrl/purchase/$orderId/pickings/', headers: {'$headerKey': sessionId});
 
     if (response.statusCode == 200) {
       var parsed = json.decode(response.body);
@@ -95,7 +95,7 @@ class Api {
     };
     var body = json.encode(map);
 
-    var response = await http.post('$baseUrl/purchase/delivery/create/', headers: {'$headerKey': sessionId}, body: body);
+    var response = await client.post('$baseUrl/purchase/delivery/create/', headers: {'$headerKey': sessionId}, body: body);
 
     if (response.statusCode == 200) {
       return 'success';

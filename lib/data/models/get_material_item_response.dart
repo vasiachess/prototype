@@ -2,7 +2,7 @@ import 'package:stackedprototype/data/models/material.dart';
 
 class GetMaterialItemResponse {
   String jsonrpc;
-  Null id;
+  int id;
   Result result;
 
   GetMaterialItemResponse({this.jsonrpc, this.id, this.result});
