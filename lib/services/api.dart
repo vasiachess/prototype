@@ -88,6 +88,25 @@ class Api {
 
   }
 
+  Future<String> receiveDeliveryItems(String sessionId,) async {
+
+    Map<String, dynamic> map = {
+      'params': {'pickings': '[{"id": 21, "delivry_items": [{"id": 23,"material_id": 986,"material_qty": 5,"scanned_serial_numbers": ["CUL1", "CUL2" ,"CUL3", "CUL4", "CUL5"]}]}]'},
+    };
+    var body = json.encode(map);
+
+    var response = await client.post('$baseUrl/purchase/receive/pickings/', headers: {'$headerKey': sessionId}, body: body);
+
+    if (response.statusCode == 200) {
+      return 'success';
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
+    }
+
+    return null;
+
+  }
+
   Future<String> createPurchaseDelivery(String sessionId, int orderId) async {
 
     Map map = {
