@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:stackedprototype/data/models/order.dart';
 import 'package:stackedprototype/ui/views/home/home_view.dart';
 import 'package:stackedprototype/ui/views/post_list/post_list_view.dart';
+import 'package:stackedprototype/ui/views/purchase_delivery/purchase_delivery_view.dart';
 import 'package:stackedprototype/ui/views/purchase_orders/purchase_orders_view.dart';
 import 'package:stackedprototype/ui/views/purchase_orders_items/purchase_order_items_view.dart';
 
@@ -18,11 +19,13 @@ abstract class Routes {
   static const postListView = '/post-list-view';
   static const purchaseOrdersView = '/purchase-orders-view';
   static const purchaseOrderItemsView = '/purchase-order-items-view';
+  static const purchaseDeliveryView = '/purchase-delivery-view';
   static const all = {
     homeViewRoute,
     postListView,
     purchaseOrdersView,
     purchaseOrderItemsView,
+    purchaseDeliveryView,
   };
 }
 
@@ -77,6 +80,16 @@ class Router extends RouterBase {
           builder: (context) => PurchaseOrderItemsView(order: typedArgs.order),
           settings: settings,
         );
+      case Routes.purchaseDeliveryView:
+        if (hasInvalidArgs<PurchaseDeliveryViewArguments>(args)) {
+          return misTypedArgsRoute<PurchaseDeliveryViewArguments>(args);
+        }
+        final typedArgs = args as PurchaseDeliveryViewArguments ??
+            PurchaseDeliveryViewArguments();
+        return MaterialPageRoute<dynamic>(
+          builder: (context) => PurchaseDeliveryView(key: typedArgs.key),
+          settings: settings,
+        );
       default:
         return unknownRoutePage(settings.name);
     }
@@ -109,4 +122,10 @@ class PurchaseOrdersViewArguments {
 class PurchaseOrderItemsViewArguments {
   final Order order;
   PurchaseOrderItemsViewArguments({@required this.order});
+}
+
+//PurchaseDeliveryView arguments holder class
+class PurchaseDeliveryViewArguments {
+  final Key key;
+  PurchaseDeliveryViewArguments({this.key});
 }
