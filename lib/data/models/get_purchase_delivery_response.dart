@@ -2,7 +2,7 @@ import 'package:stackedprototype/data/models/purchase_delivery.dart';
 
 class GetPurchaseDeliveryResponse {
   String jsonrpc;
-  Null id;
+  int id;
   Result result;
 
   GetPurchaseDeliveryResponse({this.jsonrpc, this.id, this.result});

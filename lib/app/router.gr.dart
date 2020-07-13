@@ -7,12 +7,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:stackedprototype/data/models/delivery_item.dart';
 import 'package:stackedprototype/data/models/order.dart';
 import 'package:stackedprototype/ui/views/home/home_view.dart';
 import 'package:stackedprototype/ui/views/post_list/post_list_view.dart';
 import 'package:stackedprototype/ui/views/purchase_delivery/purchase_delivery_view.dart';
 import 'package:stackedprototype/ui/views/purchase_orders/purchase_orders_view.dart';
 import 'package:stackedprototype/ui/views/purchase_orders_items/purchase_order_items_view.dart';
+import 'package:stackedprototype/ui/views/scan/scan_view.dart';
 
 abstract class Routes {
   static const homeViewRoute = '/';
@@ -20,12 +22,14 @@ abstract class Routes {
   static const purchaseOrdersView = '/purchase-orders-view';
   static const purchaseOrderItemsView = '/purchase-order-items-view';
   static const purchaseDeliveryView = '/purchase-delivery-view';
+  static const scanView = '/scan-view';
   static const all = {
     homeViewRoute,
     postListView,
     purchaseOrdersView,
     purchaseOrderItemsView,
     purchaseDeliveryView,
+    scanView,
   };
 }
 
@@ -90,6 +94,15 @@ class Router extends RouterBase {
           builder: (context) => PurchaseDeliveryView(key: typedArgs.key),
           settings: settings,
         );
+      case Routes.scanView:
+        if (hasInvalidArgs<ScanViewArguments>(args, isRequired: true)) {
+          return misTypedArgsRoute<ScanViewArguments>(args);
+        }
+        final typedArgs = args as ScanViewArguments;
+        return MaterialPageRoute<dynamic>(
+          builder: (context) => ScanView(deliveryItem: typedArgs.deliveryItem),
+          settings: settings,
+        );
       default:
         return unknownRoutePage(settings.name);
     }
@@ -128,4 +141,10 @@ class PurchaseOrderItemsViewArguments {
 class PurchaseDeliveryViewArguments {
   final Key key;
   PurchaseDeliveryViewArguments({this.key});
+}
+
+//ScanView arguments holder class
+class ScanViewArguments {
+  final DeliveryItem deliveryItem;
+  ScanViewArguments({@required this.deliveryItem});
 }

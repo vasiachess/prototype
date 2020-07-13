@@ -51,7 +51,7 @@ class HomeView extends StatelessWidget {
                   padding: EdgeInsets.all(8),
                   color: Colors.blue,
                   onPressed: () {
-                    model.navigateToPurchaseOrders();
+                    model.navigateToPurchaseDelivery();
                   },
                   child: Text('Show purchase delivery', style: TextStyle(color: Colors.white),),
                 ),

@@ -74,7 +74,9 @@ class Api {
 
   Future<List<PurchaseDelivery>> getPurchaseDelivery(String sessionId, int orderId) async {
 
-    var response = await client.get('$baseUrl/purchase/$orderId/pickings/', headers: {'$headerKey': sessionId});
+    String jsonBody = '{"params":{}}';
+
+    var response = await client.post('$baseUrl/purchase/$orderId/pickings/', headers: {'Content-Type': 'application/json', '$headerKey': sessionId}, body: jsonBody);
 
     if (response.statusCode == 200) {
       var parsed = json.decode(response.body);

@@ -28,6 +28,8 @@ void $initGetIt(GetIt g, {String environment}) {
       () => PurchaseOrderItemsService());
   g.registerLazySingleton<PurchaseOrdersService>(() => PurchaseOrdersService());
   g.registerLazySingleton<QrCodeService>(() => QrCodeService());
+  g.registerLazySingleton<SnackbarService>(
+      () => thirdPartyServicesModule.snackbarService);
 }
 
 class _$ThirdPartyServicesModule extends ThirdPartyServicesModule {
@@ -35,4 +37,6 @@ class _$ThirdPartyServicesModule extends ThirdPartyServicesModule {
   DialogService get dialogService => DialogService();
   @override
   NavigationService get navigationService => NavigationService();
+  @override
+  SnackbarService get snackbarService => SnackbarService();
 }

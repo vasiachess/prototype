@@ -3,7 +3,7 @@ class DeliveryItem {
   int materialId;
   String materialNameEn;
   String materialNameAr;
-  int quantity;
+  double quantity;
   String warehouse;
 
   DeliveryItem(

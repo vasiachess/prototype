@@ -15,13 +15,13 @@ class PurchaseDeliveryView extends StatelessWidget {
           child: CircularProgressIndicator(),
         )
             : ListView.builder(
-            itemCount: model.data[0].deliveryItems.length,
+            itemCount: model.data.length,
             itemBuilder: (context, index) => ListTile(
-              title: Text(model.data[0].deliveryItems[index].materialNameEn),
-              subtitle: Text(model.data[0].deliveryItems[index].warehouse),
-              trailing: Text(model.data[0].deliveryItems[index].quantity.toString()),
+              title: Text(model.data[index].deliveryItems[0].materialNameEn),
+              subtitle: Text(model.data[index].deliveryItems[0].warehouse),
+              trailing: Text(model.data[index].deliveryItems[0].quantity.toString()),
               onTap: (){
-
+                model.navigateToScanView(model.data[index].deliveryItems[0]);
               },
             )),
       ),

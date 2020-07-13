@@ -10,7 +10,7 @@ class QrCodeService {
 
   Future<String> scanQrCode() async {
     var result = await BarcodeScanner.scan();
-    _scanResult = 'QR code content: ${result.rawContent}';
+    _scanResult = result.rawContent;
     return _scanResult;
   }
 

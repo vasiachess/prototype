@@ -16,7 +16,7 @@ class PurchaseOrdersService {
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final sessionId = prefs.getString('sessionId');
-    _purchaseOrders = await _api.getPurchaseOrderList(sessionId);
+    _purchaseOrders = await _api.getPurchaseOrderList(sessionId) ?? [];
 
     return _purchaseOrders;
 
