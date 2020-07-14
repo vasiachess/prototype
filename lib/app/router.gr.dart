@@ -100,7 +100,9 @@ class Router extends RouterBase {
         }
         final typedArgs = args as ScanViewArguments;
         return MaterialPageRoute<dynamic>(
-          builder: (context) => ScanView(deliveryItem: typedArgs.deliveryItem),
+          builder: (context) => ScanView(
+              deliveryId: typedArgs.deliveryId,
+              deliveryItem: typedArgs.deliveryItem),
           settings: settings,
         );
       default:
@@ -145,6 +147,7 @@ class PurchaseDeliveryViewArguments {
 
 //ScanView arguments holder class
 class ScanViewArguments {
+  final int deliveryId;
   final DeliveryItem deliveryItem;
-  ScanViewArguments({@required this.deliveryItem});
+  ScanViewArguments({@required this.deliveryId, @required this.deliveryItem});
 }

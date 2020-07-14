@@ -21,7 +21,7 @@ class PurchaseDeliveryView extends StatelessWidget {
               subtitle: Text(model.data[index].deliveryItems[0].warehouse),
               trailing: Text(model.data[index].deliveryItems[0].quantity.toString()),
               onTap: (){
-                model.navigateToScanView(model.data[index].deliveryItems[0]);
+                model.navigateToScanView(model.data[index].id, model.data[index].deliveryItems[0]);
               },
             )),
       ),

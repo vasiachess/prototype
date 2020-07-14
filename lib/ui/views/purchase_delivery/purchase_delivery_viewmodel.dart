@@ -15,8 +15,8 @@ class PurchaseDeliveryViewModel extends FutureViewModel<List<PurchaseDelivery>> 
   @override
   Future<List<PurchaseDelivery>> futureToRun() => _purchaseDeliveryService.getPurchaseDelivery(3);
 
-  Future navigateToScanView(DeliveryItem deliveryItem) async {
-    await _navigationService.navigateTo(Routes.scanView, arguments: ScanViewArguments(deliveryItem: deliveryItem),);
+  Future navigateToScanView(int deliveryId, DeliveryItem deliveryItem) async {
+    await _navigationService.navigateTo(Routes.scanView, arguments: ScanViewArguments(deliveryId: deliveryId, deliveryItem: deliveryItem),);
   }
 
 }

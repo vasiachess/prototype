@@ -1,18 +1,18 @@
 class QrCodeModel {
   int materialId;
-  String sessionId;
+  String serialNumber;
 
-  QrCodeModel({this.materialId, this.sessionId});
+  QrCodeModel({this.materialId, this.serialNumber});
 
   QrCodeModel.fromJson(Map<String, dynamic> json) {
     materialId = json['materialId'] ?? 0;
-    sessionId = json['sessionId'];
+    serialNumber = json['serialNumber'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['materialId'] = this.materialId;
-    data['sessionId'] = this.sessionId;
+    data['serialNumber'] = this.serialNumber;
     return data;
   }
 }

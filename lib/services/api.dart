@@ -9,6 +9,7 @@ import 'package:stackedprototype/data/models/get_purchase_orders_response_model.
 import 'package:stackedprototype/data/models/material.dart';
 import 'package:stackedprototype/data/models/purchase_delivery.dart';
 import 'package:stackedprototype/data/models/purchase_order.dart';
+import 'package:stackedprototype/data/models/receive_delivery_items_request_model.dart';
 
 @lazySingleton
 class Api {
@@ -90,16 +91,18 @@ class Api {
 
   }
 
-  Future<String> receiveDeliveryItems(String sessionId,) async {
+  Future<String> receiveDeliveryItems(String sessionId, ReceiveDeliveryItemsRequestModel requestModel) async {
 
     Map<String, dynamic> map = {
       'params': {'pickings': '[{"id": 21, "delivry_items": [{"id": 23,"material_id": 986,"material_qty": 5,"scanned_serial_numbers": ["CUL1", "CUL2" ,"CUL3", "CUL4", "CUL5"]}]}]'},
     };
-    var body = json.encode(map);
 
-    var response = await client.post('$baseUrl/purchase/receive/pickings/', headers: {'$headerKey': sessionId}, body: body);
+    var body = json.encode(requestModel.toJson());
+
+    var response = await client.post('$baseUrl/purchase/receive/pickings/', headers: {'Content-Type': 'application/json', '$headerKey': sessionId}, body: body);
 
     if (response.statusCode == 200) {
+      var parsed = json.decode(response.body);
       return 'success';
     } else {
       print('Request failed with status: ${response.statusCode}.');
