@@ -141,14 +141,17 @@ class ExpandableContainer extends StatelessWidget {
       curve: Curves.easeInOut,
       width: screenWidth,
       height: expanded ? expandedHeight : collapsedHeight,
-      child: Container(
-        padding: EdgeInsets.symmetric(vertical: 12),
-        child: child,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(8),
-            bottomRight: Radius.circular(8),
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 4),
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 12),
+          child: child,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(8),
+              bottomRight: Radius.circular(8),
+            ),
           ),
         ),
       ),
