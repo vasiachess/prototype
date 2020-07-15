@@ -1,4 +1,5 @@
 import 'package:stackedprototype/data/models/delivery_item.dart';
+import 'package:stackedprototype/data/models/expandable_list_item.dart';
 
 class PurchaseDelivery {
   int id;
@@ -32,4 +33,13 @@ class PurchaseDelivery {
     }
     return data;
   }
+
+  ExpandableListItem toExpandableListItem() => ExpandableListItem(
+    title: 'PD # ${this.id}',
+    date: this.createDate,
+    expandableItems: []
+
+  );
+
+
 }
