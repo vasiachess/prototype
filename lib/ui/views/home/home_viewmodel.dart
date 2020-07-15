@@ -41,6 +41,10 @@ class HomeViewModel extends BaseViewModel {
     await _navigationService.navigateTo(Routes.purchaseDeliveryView);
   }
 
+  Future navigateToSupplierPurchaseDelivery() async {
+    await _navigationService.navigateTo(Routes.supplierPurchaseDeliveryView);
+  }
+
   Future scanQrCode() async {
     _scanResult = await runBusyFuture(_qrCodeService.scanQrCode());
   }

@@ -16,6 +16,8 @@ import 'package:stackedprototype/ui/views/purchase_orders/purchase_orders_view.d
 import 'package:stackedprototype/ui/views/purchase_orders_items/purchase_order_items_view.dart';
 import 'package:stackedprototype/ui/views/scan/scan_view.dart';
 import 'package:stackedprototype/ui/views/success/success_view.dart';
+import 'package:stackedprototype/ui/views/supplier_delivery/supplier_purchase_delivery_view.dart';
+import 'package:stackedprototype/ui/views/supplier_scan/supplier_scan_view.dart';
 
 abstract class Routes {
   static const homeViewRoute = '/';
@@ -23,7 +25,10 @@ abstract class Routes {
   static const purchaseOrdersView = '/purchase-orders-view';
   static const purchaseOrderItemsView = '/purchase-order-items-view';
   static const purchaseDeliveryView = '/purchase-delivery-view';
+  static const supplierPurchaseDeliveryView =
+      '/supplier-purchase-delivery-view';
   static const scanView = '/scan-view';
+  static const supplierScanView = '/supplier-scan-view';
   static const successView = '/success-view';
   static const all = {
     homeViewRoute,
@@ -31,7 +36,9 @@ abstract class Routes {
     purchaseOrdersView,
     purchaseOrderItemsView,
     purchaseDeliveryView,
+    supplierPurchaseDeliveryView,
     scanView,
+    supplierScanView,
     successView,
   };
 }
@@ -97,6 +104,17 @@ class Router extends RouterBase {
           builder: (context) => PurchaseDeliveryView(key: typedArgs.key),
           settings: settings,
         );
+      case Routes.supplierPurchaseDeliveryView:
+        if (hasInvalidArgs<SupplierPurchaseDeliveryViewArguments>(args)) {
+          return misTypedArgsRoute<SupplierPurchaseDeliveryViewArguments>(args);
+        }
+        final typedArgs = args as SupplierPurchaseDeliveryViewArguments ??
+            SupplierPurchaseDeliveryViewArguments();
+        return MaterialPageRoute<dynamic>(
+          builder: (context) =>
+              SupplierPurchaseDeliveryView(key: typedArgs.key),
+          settings: settings,
+        );
       case Routes.scanView:
         if (hasInvalidArgs<ScanViewArguments>(args, isRequired: true)) {
           return misTypedArgsRoute<ScanViewArguments>(args);
@@ -104,6 +122,17 @@ class Router extends RouterBase {
         final typedArgs = args as ScanViewArguments;
         return MaterialPageRoute<dynamic>(
           builder: (context) => ScanView(
+              deliveryId: typedArgs.deliveryId,
+              deliveryItem: typedArgs.deliveryItem),
+          settings: settings,
+        );
+      case Routes.supplierScanView:
+        if (hasInvalidArgs<SupplierScanViewArguments>(args, isRequired: true)) {
+          return misTypedArgsRoute<SupplierScanViewArguments>(args);
+        }
+        final typedArgs = args as SupplierScanViewArguments;
+        return MaterialPageRoute<dynamic>(
+          builder: (context) => SupplierScanView(
               deliveryId: typedArgs.deliveryId,
               deliveryItem: typedArgs.deliveryItem),
           settings: settings,
@@ -157,11 +186,25 @@ class PurchaseDeliveryViewArguments {
   PurchaseDeliveryViewArguments({this.key});
 }
 
+//SupplierPurchaseDeliveryView arguments holder class
+class SupplierPurchaseDeliveryViewArguments {
+  final Key key;
+  SupplierPurchaseDeliveryViewArguments({this.key});
+}
+
 //ScanView arguments holder class
 class ScanViewArguments {
   final int deliveryId;
   final DeliveryItem deliveryItem;
   ScanViewArguments({@required this.deliveryId, @required this.deliveryItem});
+}
+
+//SupplierScanView arguments holder class
+class SupplierScanViewArguments {
+  final int deliveryId;
+  final DeliveryItem deliveryItem;
+  SupplierScanViewArguments(
+      {@required this.deliveryId, @required this.deliveryItem});
 }
 
 //SuccessView arguments holder class

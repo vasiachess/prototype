@@ -64,6 +64,17 @@ class HomeView extends StatelessWidget {
               padding: EdgeInsets.all(8),
               color: Colors.blue,
               onPressed: () {
+                model.navigateToSupplierPurchaseDelivery();
+              },
+              child: Text('Show supplier purchase delivery', style: TextStyle(color: Colors.white),),
+            ),
+            SizedBox(
+              height: 24,
+            ),
+            FlatButton(
+              padding: EdgeInsets.all(8),
+              color: Colors.blue,
+              onPressed: () {
                 model.navigateToPostList();
               },
               child: Text('Show list of posts', style: TextStyle(color: Colors.white),),
