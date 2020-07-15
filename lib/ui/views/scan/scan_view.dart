@@ -46,7 +46,7 @@ class ScanView extends StatelessWidget {
                 child: Row(
                   children: <Widget>[
                     Text(
-                      'id: ${deliveryItem.materialId.toString()}',
+                      'PD: $deliveryId',
                       style: TextStyle(
                         color: colorTextLight,
                         fontSize: 16,
@@ -56,7 +56,7 @@ class ScanView extends StatelessWidget {
                       child: SizedBox(),
                     ),
                     Text(
-                      '0/${deliveryItem.quantity.toInt()}',
+                      '${model.serialNumbers.length}/${deliveryItem.quantity.toInt()}',
                       style: TextStyle(
                         color: colorTextDark,
                         fontSize: 16,

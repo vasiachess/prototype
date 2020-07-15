@@ -10,6 +10,7 @@ import 'package:stackedprototype/data/models/material.dart';
 import 'package:stackedprototype/data/models/purchase_delivery.dart';
 import 'package:stackedprototype/data/models/purchase_order.dart';
 import 'package:stackedprototype/data/models/receive_delivery_items_request_model.dart';
+import 'package:stackedprototype/data/models/receiving_delivery_response.dart';
 
 @lazySingleton
 class Api {
@@ -91,7 +92,7 @@ class Api {
 
   }
 
-  Future<String> receiveDeliveryItems(String sessionId, ReceiveDeliveryItemsRequestModel requestModel) async {
+  Future<ReceivingDeliveryResponse> receiveDeliveryItems(String sessionId, ReceiveDeliveryItemsRequestModel requestModel) async {
 
     Map<String, dynamic> map = {
       'params': {'pickings': '[{"id": 21, "delivry_items": [{"id": 23,"material_id": 986,"material_qty": 5,"scanned_serial_numbers": ["CUL1", "CUL2" ,"CUL3", "CUL4", "CUL5"]}]}]'},
@@ -103,7 +104,8 @@ class Api {
 
     if (response.statusCode == 200) {
       var parsed = json.decode(response.body);
-      return 'success';
+      ReceivingDeliveryResponse deliveryResponse = ReceivingDeliveryResponse.fromJson(parsed);
+      return deliveryResponse;
     } else {
       print('Request failed with status: ${response.statusCode}.');
     }
