@@ -109,26 +109,29 @@ class SupplierPurchaseDeliveryView extends StatelessWidget {
                   SizedBox(
                     height: 16,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                        boxShadow: [
-                          BoxShadow(
-                            color: colorGreyShadow, spreadRadius: 2, blurRadius: 5, // changes position of shadow
+                  Flexible(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: colorGreyShadow, spreadRadius: 2, blurRadius: 5, // changes position of shadow
+                            ),
+                          ],
+                        ),
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          physics: ClampingScrollPhysics(),
+                          itemCount: model.data.length,
+                          itemBuilder: (context, index) => ExpandableListView(
+                            expandableListItem: ExpandableListItem.fromSupplierDelivery(model.data[index]),
+                            onPressed: (itemIndex) {
+                              model.navigateToScanView(model.data[index].id, model.data[index].deliveryItems[itemIndex]);
+                            },
                           ),
-                        ],
-                      ),
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: model.data.length,
-                        itemBuilder: (context, index) => ExpandableListView(
-                          expandableListItem: ExpandableListItem.fromSupplierDelivery(model.data[index]),
-                          onPressed: (itemIndex) {
-                            model.navigateToScanView(model.data[index].id, model.data[index].deliveryItems[itemIndex]);
-                          },
                         ),
                       ),
                     ),

@@ -110,47 +110,35 @@ class PurchaseOrdersView extends StatelessWidget {
             SizedBox(
               height: 16,
             ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.transparent,
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: colorGreyShadow, spreadRadius: 2, blurRadius: 5, // changes position of shadow
-                    ),
-                  ],
-                ),
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: model.data.length,
-                  itemBuilder: (context, index) => ExpandableListView(
-                    expandableListItem: ExpandableListItem.fromPurchaseOrder(model.data[index]),
-                    onPressed: (itemIndex) {
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: colorGreyShadow, spreadRadius: 2, blurRadius: 5, // changes position of shadow
+                      ),
+                    ],
+                  ),
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: ClampingScrollPhysics(),
+                    itemCount: model.data.length,
+                    itemBuilder: (context, index) => ExpandableListView(
+                      expandableListItem: ExpandableListItem.fromPurchaseOrder(model.data[index]),
+                      onPressed: (itemIndex) {
 //                      model.navigateToScanView(model.data[index].id, model.data[index].deliveryItems[itemIndex]);
-                    },
+                      },
+                    ),
                   ),
                 ),
               ),
             ),
           ],
         ),
-
-//        body: model.isBusy
-//            ? Center(
-//          child: CircularProgressIndicator(),
-//        )
-//            : ListView.builder(
-//            itemCount: model.data.length,
-//            itemBuilder: (context, index) => ListTile(
-//              title: Text(model.data[index].order.supplier),
-//              subtitle: Text(model.data[index].order.dateOrder),
-//              trailing: Text(model.data[index].order.name),
-//              onTap: (){
-//                model.navigateToPurchaseOrderItems(model.data[index].order);
-//              },
-//            )),
       ),
       viewModelBuilder: () => PurchaseOrdersViewModel(),
     );
