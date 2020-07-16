@@ -113,6 +113,24 @@ class Api {
 
   }
 
+  Future<List<SupplierPurchaseDelivery>> getPendingSupplierPurchaseDelivery(String sessionId) async {
+
+    String jsonBody = '{"params":{"logged_supplier_id": "user@idemia.com"}}';
+
+    var response = await client.post('$baseUrl/purchase/pending/supplierpickings/', headers: {'Content-Type': 'application/json', '$headerKey': sessionId}, body: jsonBody);
+
+    if (response.statusCode == 200) {
+      var parsed = json.decode(response.body);
+      GetSupplierPurchaseDeliveryResponse deliveryResponse= GetSupplierPurchaseDeliveryResponse.fromJson(parsed);
+      return deliveryResponse.result.purchaseDelivery;
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
+    }
+
+    return null;
+
+  }
+
   Future<ReceivingDeliveryResponse> receiveDeliveryItems(String sessionId, ReceiveDeliveryItemsRequestModel requestModel) async {
 
 //    Map<String, dynamic> map = {

@@ -35,4 +35,14 @@ class PurchaseDeliveryService {
     return _purchaseSupplierDelivery;
 
   }
+
+  Future<List<SupplierPurchaseDelivery>> getPendingSupplierPurchaseDelivery() async {
+
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final sessionId = prefs.getString('sessionId');
+    _purchaseSupplierDelivery = await _api.getPendingSupplierPurchaseDelivery(sessionId) ?? [];
+
+    return _purchaseSupplierDelivery;
+
+  }
 }

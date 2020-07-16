@@ -13,7 +13,7 @@ class SupplierPurchaseDeliveryViewModel extends FutureViewModel<List<SupplierPur
   final _purchaseDeliveryService = locator<PurchaseDeliveryService>();
 
   @override
-  Future<List<SupplierPurchaseDelivery>> futureToRun() => _purchaseDeliveryService.getSupplierPurchaseDelivery(12);
+  Future<List<SupplierPurchaseDelivery>> futureToRun() => _purchaseDeliveryService.getPendingSupplierPurchaseDelivery();
 
   Future navigateToScanView(int deliveryId, DeliveryItem deliveryItem) async {
     await _navigationService.navigateTo(Routes.supplierScanView, arguments: SupplierScanViewArguments(deliveryId: deliveryId, deliveryItem: deliveryItem),);
