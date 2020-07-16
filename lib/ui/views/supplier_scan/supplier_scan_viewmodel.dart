@@ -94,30 +94,55 @@ class SupplierScanViewModel extends BaseViewModel {
       }
     }
 
-    if (serialNumbers.length == quantity) {
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      final sessionId = prefs.getString('sessionId');
-      final response = await _api.receiveSupplierDeliveryItems(
-          sessionId,
-          ReceiveSupplierDeliveryItemsRequestModel(
-              params: Params(pickings: [ Pickings(
-                id: deliveryId,
-                deliveryItems: [DeliveryItem(id: id, materialId: materialId, materialQty: quantity, scannedSerialNumbers: serialNumbers)])
-          ])));
-
-      if (response == null) {
-        showSnackBar('Something went wrong');
-      } else if (response.result.status.toLowerCase() == 'success') {
-        navigateSuccess(quantity);
-      } else {
-        _scanResult = '';
-        serialNumbers.clear();
-        showSnackBar('Error: ${response.result.error}');
-        notifyListeners();
-      }
-    }
+//    if (serialNumbers.length == quantity) {
+//      final SharedPreferences prefs = await SharedPreferences.getInstance();
+//      final sessionId = prefs.getString('sessionId');
+//      final response = await _api.receiveSupplierDeliveryItems(
+//          sessionId,
+//          ReceiveSupplierDeliveryItemsRequestModel(
+//              params: Params(pickings: [ Pickings(
+//                id: deliveryId,
+//                deliveryItems: [DeliveryItem(id: id, materialId: materialId, materialQty: quantity, scannedSerialNumbers: serialNumbers)])
+//          ])));
+//
+//      if (response == null) {
+//        showSnackBar('Something went wrong');
+//      } else if (response.result.status.toLowerCase() == 'success') {
+//        navigateSuccess(quantity);
+//      } else {
+//        _scanResult = '';
+//        serialNumbers.clear();
+//        showSnackBar('Error: ${response.result.error}');
+//        notifyListeners();
+//      }
+//    }
+    _scanResult = '';
+    notifyListeners();
 
     return _scanResult;
+  }
+
+  Future<void> submit() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final sessionId = prefs.getString('sessionId');
+    final response = await _api.receiveSupplierDeliveryItems(
+        sessionId,
+        ReceiveSupplierDeliveryItemsRequestModel(
+            params: Params(pickings: [ Pickings(
+                id: deliveryId,
+                deliveryItems: [DeliveryItem(id: id, materialId: materialId, materialQty: quantity, scannedSerialNumbers: serialNumbers)])
+            ])));
+
+    if (response == null) {
+      showSnackBar('Something went wrong');
+    } else if (response.result.status.toLowerCase() == 'success') {
+      navigateSuccess(quantity);
+    } else {
+      _scanResult = '';
+//      serialNumbers.clear();
+      showSnackBar('Error: ${response.result.error}');
+      notifyListeners();
+    }
   }
 
   Future showSnackBar(String message) async {
