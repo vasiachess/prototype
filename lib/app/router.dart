@@ -5,6 +5,9 @@ import 'package:stackedprototype/ui/views/purchase_delivery/purchase_delivery_vi
 import 'package:stackedprototype/ui/views/purchase_orders/purchase_orders_view.dart';
 import 'package:stackedprototype/ui/views/purchase_orders_items/purchase_order_items_view.dart';
 import 'package:stackedprototype/ui/views/scan/scan_view.dart';
+import 'package:stackedprototype/ui/views/success/success_view.dart';
+import 'package:stackedprototype/ui/views/supplier_delivery/supplier_purchase_delivery_view.dart';
+import 'package:stackedprototype/ui/views/supplier_scan/supplier_scan_view.dart';
 
 @MaterialAutoRouter()
 class $Router {
@@ -14,5 +17,8 @@ class $Router {
   PurchaseOrdersView purchaseOrdersView;
   PurchaseOrderItemsView purchaseOrderItemsView;
   PurchaseDeliveryView purchaseDeliveryView;
+  SupplierPurchaseDeliveryView supplierPurchaseDeliveryView;
   ScanView scanView;
+  SupplierScanView supplierScanView;
+  SuccessView successView;
 }

@@ -4,18 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stackedprototype/constants.dart';
 import 'package:stackedprototype/data/models/delivery_item.dart';
-import 'package:stackedprototype/ui/views/scan/scan_viewmodel.dart';
+import 'package:stackedprototype/ui/views/supplier_scan/supplier_scan_viewmodel.dart';
 
-class ScanView extends StatelessWidget {
+class SupplierScanView extends StatelessWidget {
   final DeliveryItem deliveryItem;
   final int deliveryId;
-  const ScanView({@required this.deliveryId, @required this.deliveryItem});
+  const SupplierScanView({@required this.deliveryId, @required this.deliveryItem});
 
   static const String id = 'Scan_screen';
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<ScanViewModel>.reactive(
+    return ViewModelBuilder<SupplierScanViewModel>.reactive(
       builder: (context, model, child) {
         return Scaffold(
           appBar: AppBar(
@@ -277,7 +277,7 @@ class ScanView extends StatelessWidget {
           ),
         );
       },
-      viewModelBuilder: () => ScanViewModel(deliveryId, deliveryItem.id, deliveryItem.quantity.toInt(), deliveryItem.materialId),
+      viewModelBuilder: () => SupplierScanViewModel(deliveryId, deliveryItem.id, deliveryItem.quantity.toInt(), deliveryItem.materialId),
     );
   }
 }

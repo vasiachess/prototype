@@ -4,14 +4,14 @@ import 'package:stacked/stacked.dart';
 import 'package:stackedprototype/constants.dart';
 import 'package:stackedprototype/data/models/expandable_list_item.dart';
 import 'package:stackedprototype/ui/components/expandable_list_view.dart';
-import 'package:stackedprototype/ui/views/purchase_delivery/purchase_delivery_viewmodel.dart';
+import 'package:stackedprototype/ui/views/supplier_delivery/supplier_purchase_delivery_viewmodel.dart';
 
-class PurchaseDeliveryView extends StatelessWidget {
-  const PurchaseDeliveryView({Key key}) : super(key: key);
+class SupplierPurchaseDeliveryView extends StatelessWidget {
+  const SupplierPurchaseDeliveryView({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<PurchaseDeliveryViewModel>.reactive(
+    return ViewModelBuilder<SupplierPurchaseDeliveryViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
           backgroundColor: colorViolet,
@@ -55,7 +55,7 @@ class PurchaseDeliveryView extends StatelessWidget {
                               10,
                             ),
                             child: Text(
-                              'DELIVERIES',
+                              'SUPPLIER DELIVERIES',
                               style: TextStyle(
                                 color: colorTextLight,
                                 letterSpacing: 1.5,
@@ -125,7 +125,7 @@ class PurchaseDeliveryView extends StatelessWidget {
                         shrinkWrap: true,
                         itemCount: model.data.length,
                         itemBuilder: (context, index) => ExpandableListView(
-                          expandableListItem: ExpandableListItem.fromDelivery(model.data[index]),
+                          expandableListItem: ExpandableListItem.fromSupplierDelivery(model.data[index]),
                           onPressed: (itemIndex) {
                             model.navigateToScanView(model.data[index].id, model.data[index].deliveryItems[itemIndex]);
                           },
@@ -136,7 +136,7 @@ class PurchaseDeliveryView extends StatelessWidget {
                 ],
               ),
       ),
-      viewModelBuilder: () => PurchaseDeliveryViewModel(),
+      viewModelBuilder: () => SupplierPurchaseDeliveryViewModel(),
     );
   }
 }

@@ -6,12 +6,12 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:stackedprototype/app/locator.dart';
 import 'package:stackedprototype/app/router.gr.dart';
 import 'package:stackedprototype/constants.dart';
-import 'package:stackedprototype/data/models/receive_delivery_items_request_model.dart';
+import 'package:stackedprototype/data/models/receive_supplier_delivery_items_request_model.dart';
 import 'package:stackedprototype/services/api.dart';
 import 'package:stackedprototype/services/qr_code_service.dart';
 
-class ScanViewModel extends BaseViewModel {
-  ScanViewModel(
+class SupplierScanViewModel extends BaseViewModel {
+  SupplierScanViewModel(
     this._deliveryId,
     this._id,
     this._quantity,
@@ -97,11 +97,10 @@ class ScanViewModel extends BaseViewModel {
     if (serialNumbers.length == quantity) {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       final sessionId = prefs.getString('sessionId');
-      final response = await _api.receiveDeliveryItems(
+      final response = await _api.receiveSupplierDeliveryItems(
           sessionId,
-          ReceiveDeliveryItemsRequestModel(
-              params: Params(pickings: [
-            Pickings(
+          ReceiveSupplierDeliveryItemsRequestModel(
+              params: Params(pickings: [ Pickings(
                 id: deliveryId,
                 deliveryItems: [DeliveryItem(id: id, materialId: materialId, materialQty: quantity, scannedSerialNumbers: serialNumbers)])
           ])));

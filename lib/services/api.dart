@@ -6,10 +6,14 @@ import 'package:stackedprototype/data/models/auth_response.dart';
 import 'package:stackedprototype/data/models/get_material_item_response.dart';
 import 'package:stackedprototype/data/models/get_purchase_delivery_response.dart';
 import 'package:stackedprototype/data/models/get_purchase_orders_response_model.dart';
+import 'package:stackedprototype/data/models/get_supplier_purchase_delivery_response.dart';
 import 'package:stackedprototype/data/models/material.dart';
 import 'package:stackedprototype/data/models/purchase_delivery.dart';
 import 'package:stackedprototype/data/models/purchase_order.dart';
 import 'package:stackedprototype/data/models/receive_delivery_items_request_model.dart';
+import 'package:stackedprototype/data/models/receive_supplier_delivery_items_request_model.dart';
+import 'package:stackedprototype/data/models/receiving_delivery_response.dart';
+import 'package:stackedprototype/data/models/supplier_purchase_delivery.dart';
 
 @lazySingleton
 class Api {
@@ -91,11 +95,29 @@ class Api {
 
   }
 
-  Future<String> receiveDeliveryItems(String sessionId, ReceiveDeliveryItemsRequestModel requestModel) async {
+  Future<List<SupplierPurchaseDelivery>> getSupplierPurchaseDelivery(String sessionId, int orderId) async {
 
-    Map<String, dynamic> map = {
-      'params': {'pickings': '[{"id": 21, "delivry_items": [{"id": 23,"material_id": 986,"material_qty": 5,"scanned_serial_numbers": ["CUL1", "CUL2" ,"CUL3", "CUL4", "CUL5"]}]}]'},
-    };
+    String jsonBody = '{"params":{}}';
+
+    var response = await client.post('$baseUrl/purchase/$orderId/supplierpickings/', headers: {'Content-Type': 'application/json', '$headerKey': sessionId}, body: jsonBody);
+
+    if (response.statusCode == 200) {
+      var parsed = json.decode(response.body);
+      GetSupplierPurchaseDeliveryResponse deliveryResponse= GetSupplierPurchaseDeliveryResponse.fromJson(parsed);
+      return deliveryResponse.result.purchaseDelivery;
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
+    }
+
+    return null;
+
+  }
+
+  Future<ReceivingDeliveryResponse> receiveDeliveryItems(String sessionId, ReceiveDeliveryItemsRequestModel requestModel) async {
+
+//    Map<String, dynamic> map = {
+//      'params': {'pickings': '[{"id": 21, "delivry_items": [{"id": 23,"material_id": 986,"material_qty": 5,"scanned_serial_numbers": ["CUL1", "CUL2" ,"CUL3", "CUL4", "CUL5"]}]}]'},
+//    };
 
     var body = json.encode(requestModel.toJson());
 
@@ -103,7 +125,26 @@ class Api {
 
     if (response.statusCode == 200) {
       var parsed = json.decode(response.body);
-      return 'success';
+      ReceivingDeliveryResponse deliveryResponse = ReceivingDeliveryResponse.fromJson(parsed);
+      return deliveryResponse;
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
+    }
+
+    return null;
+
+  }
+
+  Future<ReceivingDeliveryResponse> receiveSupplierDeliveryItems(String sessionId, ReceiveSupplierDeliveryItemsRequestModel requestModel) async {
+
+    var body = json.encode(requestModel.toJson());
+
+    var response = await client.post('$baseUrl/purchase/receive/supplierpickings/', headers: {'Content-Type': 'application/json', '$headerKey': sessionId}, body: body);
+
+    if (response.statusCode == 200) {
+      var parsed = json.decode(response.body);
+      ReceivingDeliveryResponse deliveryResponse = ReceivingDeliveryResponse.fromJson(parsed);
+      return deliveryResponse;
     } else {
       print('Request failed with status: ${response.statusCode}.');
     }
