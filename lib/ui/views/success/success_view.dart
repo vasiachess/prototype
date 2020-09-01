@@ -7,7 +7,8 @@ import 'success_viewmodel.dart';
 
 class SuccessView extends StatelessWidget {
   final int itemsCount;
-  const SuccessView({@required this.itemsCount});
+  final List<String> serialNotImported;
+  const SuccessView({@required this.itemsCount, @required this.serialNotImported});
 
   @override
   Widget build(BuildContext context) {
