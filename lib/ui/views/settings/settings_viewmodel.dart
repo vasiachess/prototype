@@ -9,7 +9,20 @@ class SettingsViewModel extends BaseViewModel {
   final SnackbarService _snackbarService = locator<SnackbarService>();
 
 
-  Future navigateSuccess(int itemsCount) async {
-    await _navigationService.navigateTo(Routes.successView);
+  Future navigateLanguage() async {
+    await _navigationService.navigateTo(Routes.settingsLanguageView);
   }
+
+  Future navigateSaveMode() async {
+    await _navigationService.navigateTo(Routes.settingsSaveModeView);
+  }
+
+  Future clearData() {
+
+  }
+
+  Future checkUpdates() {
+
+  }
+
 }
