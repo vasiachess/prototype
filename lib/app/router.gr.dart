@@ -9,12 +9,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stackedprototype/data/models/delivery_item.dart';
 import 'package:stackedprototype/data/models/order.dart';
+import 'package:stackedprototype/ui/views/change_password/change_password_view.dart';
+import 'package:stackedprototype/ui/views/edit_profile/edit_profile_view.dart';
 import 'package:stackedprototype/ui/views/home/home_view.dart';
+import 'package:stackedprototype/ui/views/more/more_view.dart';
 import 'package:stackedprototype/ui/views/post_list/post_list_view.dart';
 import 'package:stackedprototype/ui/views/purchase_delivery/purchase_delivery_view.dart';
 import 'package:stackedprototype/ui/views/purchase_orders/purchase_orders_view.dart';
 import 'package:stackedprototype/ui/views/purchase_orders_items/purchase_order_items_view.dart';
 import 'package:stackedprototype/ui/views/scan/scan_view.dart';
+import 'package:stackedprototype/ui/views/settings/settings_view.dart';
+import 'package:stackedprototype/ui/views/settings_language/settings_language_view.dart';
+import 'package:stackedprototype/ui/views/settings_save_mode/settings_save_mode_view.dart';
 import 'package:stackedprototype/ui/views/success/success_view.dart';
 import 'package:stackedprototype/ui/views/supplier_delivery/supplier_purchase_delivery_view.dart';
 import 'package:stackedprototype/ui/views/supplier_scan/supplier_scan_view.dart';
@@ -30,6 +36,12 @@ abstract class Routes {
   static const scanView = '/scan-view';
   static const supplierScanView = '/supplier-scan-view';
   static const successView = '/success-view';
+  static const moreView = '/more-view';
+  static const editProfileView = '/edit-profile-view';
+  static const changePasswordView = '/change-password-view';
+  static const settingsView = '/settings-view';
+  static const settingsLanguageView = '/settings-language-view';
+  static const settingsSaveModeView = '/settings-save-mode-view';
   static const all = {
     homeViewRoute,
     postListView,
@@ -40,6 +52,12 @@ abstract class Routes {
     scanView,
     supplierScanView,
     successView,
+    moreView,
+    editProfileView,
+    changePasswordView,
+    settingsView,
+    settingsLanguageView,
+    settingsSaveModeView,
   };
 }
 
@@ -143,7 +161,68 @@ class Router extends RouterBase {
         }
         final typedArgs = args as SuccessViewArguments;
         return MaterialPageRoute<dynamic>(
-          builder: (context) => SuccessView(itemsCount: typedArgs.itemsCount),
+          builder: (context) => SuccessView(
+              itemsCount: typedArgs.itemsCount,
+              serialNotImported: typedArgs.serialNotImported),
+          settings: settings,
+        );
+      case Routes.moreView:
+        if (hasInvalidArgs<MoreViewArguments>(args)) {
+          return misTypedArgsRoute<MoreViewArguments>(args);
+        }
+        final typedArgs = args as MoreViewArguments ?? MoreViewArguments();
+        return MaterialPageRoute<dynamic>(
+          builder: (context) => MoreView(key: typedArgs.key),
+          settings: settings,
+        );
+      case Routes.editProfileView:
+        if (hasInvalidArgs<EditProfileViewArguments>(args)) {
+          return misTypedArgsRoute<EditProfileViewArguments>(args);
+        }
+        final typedArgs =
+            args as EditProfileViewArguments ?? EditProfileViewArguments();
+        return MaterialPageRoute<dynamic>(
+          builder: (context) => EditProfileView(key: typedArgs.key),
+          settings: settings,
+        );
+      case Routes.changePasswordView:
+        if (hasInvalidArgs<ChangePasswordViewArguments>(args)) {
+          return misTypedArgsRoute<ChangePasswordViewArguments>(args);
+        }
+        final typedArgs = args as ChangePasswordViewArguments ??
+            ChangePasswordViewArguments();
+        return MaterialPageRoute<dynamic>(
+          builder: (context) => ChangePasswordView(key: typedArgs.key),
+          settings: settings,
+        );
+      case Routes.settingsView:
+        if (hasInvalidArgs<SettingsViewArguments>(args)) {
+          return misTypedArgsRoute<SettingsViewArguments>(args);
+        }
+        final typedArgs =
+            args as SettingsViewArguments ?? SettingsViewArguments();
+        return MaterialPageRoute<dynamic>(
+          builder: (context) => SettingsView(key: typedArgs.key),
+          settings: settings,
+        );
+      case Routes.settingsLanguageView:
+        if (hasInvalidArgs<SettingsLanguageViewArguments>(args)) {
+          return misTypedArgsRoute<SettingsLanguageViewArguments>(args);
+        }
+        final typedArgs = args as SettingsLanguageViewArguments ??
+            SettingsLanguageViewArguments();
+        return MaterialPageRoute<dynamic>(
+          builder: (context) => SettingsLanguageView(key: typedArgs.key),
+          settings: settings,
+        );
+      case Routes.settingsSaveModeView:
+        if (hasInvalidArgs<SettingsSaveModeViewArguments>(args)) {
+          return misTypedArgsRoute<SettingsSaveModeViewArguments>(args);
+        }
+        final typedArgs = args as SettingsSaveModeViewArguments ??
+            SettingsSaveModeViewArguments();
+        return MaterialPageRoute<dynamic>(
+          builder: (context) => SettingsSaveModeView(key: typedArgs.key),
           settings: settings,
         );
       default:
@@ -210,5 +289,43 @@ class SupplierScanViewArguments {
 //SuccessView arguments holder class
 class SuccessViewArguments {
   final int itemsCount;
-  SuccessViewArguments({@required this.itemsCount});
+  final List<String> serialNotImported;
+  SuccessViewArguments(
+      {@required this.itemsCount, @required this.serialNotImported});
+}
+
+//MoreView arguments holder class
+class MoreViewArguments {
+  final Key key;
+  MoreViewArguments({this.key});
+}
+
+//EditProfileView arguments holder class
+class EditProfileViewArguments {
+  final Key key;
+  EditProfileViewArguments({this.key});
+}
+
+//ChangePasswordView arguments holder class
+class ChangePasswordViewArguments {
+  final Key key;
+  ChangePasswordViewArguments({this.key});
+}
+
+//SettingsView arguments holder class
+class SettingsViewArguments {
+  final Key key;
+  SettingsViewArguments({this.key});
+}
+
+//SettingsLanguageView arguments holder class
+class SettingsLanguageViewArguments {
+  final Key key;
+  SettingsLanguageViewArguments({this.key});
+}
+
+//SettingsSaveModeView arguments holder class
+class SettingsSaveModeViewArguments {
+  final Key key;
+  SettingsSaveModeViewArguments({this.key});
 }

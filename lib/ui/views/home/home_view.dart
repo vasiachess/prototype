@@ -31,6 +31,12 @@ class HomeView extends StatelessWidget {
             SizedBox(
               height: 16,
             ),
+            FlatButton(
+              padding: EdgeInsets.all(8),
+              color: Colors.blue,
+              onPressed: () => model.navigateToMore(),
+              child: Text('More', style: TextStyle(color: Colors.white),),
+            ),
             Row(
               children: <Widget>[
                 SizedBox(
