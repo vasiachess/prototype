@@ -158,7 +158,7 @@ class SettingsView extends StatelessWidget {
                           ),
                           SizedBox(height: 8,),
                           Text(
-                            'Clear  the survey data saved in this device',
+                            'Clear the survey data saved in this device',
                             style: TextStyle(
                               color: colorTextLight,
                               fontSize: 16,
