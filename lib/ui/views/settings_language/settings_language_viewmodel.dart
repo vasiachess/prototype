@@ -1,7 +1,6 @@
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:stackedprototype/app/locator.dart';
-import 'package:stackedprototype/app/router.gr.dart';
 
 class SettingsLanguageViewModel extends BaseViewModel {
 
@@ -21,7 +20,4 @@ class SettingsLanguageViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  Future navigateSuccess(int itemsCount) async {
-    await _navigationService.navigateTo(Routes.successView);
-  }
 }
