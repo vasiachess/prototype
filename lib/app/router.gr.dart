@@ -12,6 +12,7 @@ import 'package:stackedprototype/data/models/order.dart';
 import 'package:stackedprototype/ui/views/change_password/change_password_view.dart';
 import 'package:stackedprototype/ui/views/edit_profile/edit_profile_view.dart';
 import 'package:stackedprototype/ui/views/home/home_view.dart';
+import 'package:stackedprototype/ui/views/image_footer/image_footer_view.dart';
 import 'package:stackedprototype/ui/views/more/more_view.dart';
 import 'package:stackedprototype/ui/views/post_list/post_list_view.dart';
 import 'package:stackedprototype/ui/views/purchase_delivery/purchase_delivery_view.dart';
@@ -42,6 +43,7 @@ abstract class Routes {
   static const settingsView = '/settings-view';
   static const settingsLanguageView = '/settings-language-view';
   static const settingsSaveModeView = '/settings-save-mode-view';
+  static const imageFooterView = '/image-footer-view';
   static const all = {
     homeViewRoute,
     postListView,
@@ -58,6 +60,7 @@ abstract class Routes {
     settingsView,
     settingsLanguageView,
     settingsSaveModeView,
+    imageFooterView,
   };
 }
 
@@ -225,6 +228,16 @@ class Router extends RouterBase {
           builder: (context) => SettingsSaveModeView(key: typedArgs.key),
           settings: settings,
         );
+      case Routes.imageFooterView:
+        if (hasInvalidArgs<ImageFooterViewArguments>(args)) {
+          return misTypedArgsRoute<ImageFooterViewArguments>(args);
+        }
+        final typedArgs =
+            args as ImageFooterViewArguments ?? ImageFooterViewArguments();
+        return MaterialPageRoute<dynamic>(
+          builder: (context) => ImageFooterView(key: typedArgs.key),
+          settings: settings,
+        );
       default:
         return unknownRoutePage(settings.name);
     }
@@ -328,4 +341,10 @@ class SettingsLanguageViewArguments {
 class SettingsSaveModeViewArguments {
   final Key key;
   SettingsSaveModeViewArguments({this.key});
+}
+
+//ImageFooterView arguments holder class
+class ImageFooterViewArguments {
+  final Key key;
+  ImageFooterViewArguments({this.key});
 }

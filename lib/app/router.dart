@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route_annotations.dart';
 import 'package:stackedprototype/ui/views/change_password/change_password_view.dart';
 import 'package:stackedprototype/ui/views/edit_profile/edit_profile_view.dart';
 import 'package:stackedprototype/ui/views/home/home_view.dart';
+import 'package:stackedprototype/ui/views/image_footer/image_footer_view.dart';
 import 'package:stackedprototype/ui/views/more/more_view.dart';
 import 'package:stackedprototype/ui/views/post_list/post_list_view.dart';
 import 'package:stackedprototype/ui/views/purchase_delivery/purchase_delivery_view.dart';
@@ -33,4 +34,5 @@ class $Router {
   SettingsView settingsView;
   SettingsLanguageView settingsLanguageView;
   SettingsSaveModeView settingsSaveModeView;
+  ImageFooterView imageFooterView;
 }

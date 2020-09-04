@@ -14,6 +14,7 @@ class HomeView extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Center(child: Text(model.title)),
             SizedBox(
@@ -31,17 +32,36 @@ class HomeView extends StatelessWidget {
             SizedBox(
               height: 16,
             ),
-            FlatButton(
-              padding: EdgeInsets.all(8),
-              color: Colors.blue,
-              onPressed: () => model.navigateToMore(),
-              child: Text('More', style: TextStyle(color: Colors.white),),
+            Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  FlatButton(
+                    padding: EdgeInsets.all(8),
+                    color: Colors.blue,
+                    onPressed: () => model.navigateToMore(),
+                    child: Text('More', style: TextStyle(color: Colors.white),),
+                  ),
+                  SizedBox(
+                    width: 16,
+                  ),
+                  FlatButton(
+                    padding: EdgeInsets.all(8),
+                    color: Colors.blue,
+                    onPressed: () => model.navigateToImageFooter(),
+                    child: Text('Image Footer', style: TextStyle(color: Colors.white),),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 16,
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                SizedBox(
-                    width: 16
-                ),
                 FlatButton(
                   padding: EdgeInsets.all(8),
                   color: Colors.blue,

@@ -37,6 +37,10 @@ class HomeViewModel extends BaseViewModel {
     await _navigationService.navigateTo(Routes.moreView);
   }
 
+  Future navigateToImageFooter() async {
+    await _navigationService.navigateTo(Routes.imageFooterView);
+  }
+
   Future navigateToPurchaseOrders() async {
     await _navigationService.navigateTo(Routes.purchaseOrdersView);
   }
