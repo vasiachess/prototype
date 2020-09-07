@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:bitmap/bitmap.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:stacked/stacked.dart';
 
 
@@ -75,6 +77,16 @@ class ImageFooterViewModel extends BaseViewModel {
     final offset = Offset(20, bitmap.height.toDouble() + 20);
     textPainter.paint(canvas, offset);
 
+    final qrImage = await QrPainter(
+      data: '$title\n$location\n$date\n$imageName',
+      version: QrVersions.auto,
+      gapless: false,
+      color: Colors.black,
+      emptyColor: Colors.white,
+    ).toImage(200);
+
+    canvas.drawImage(qrImage, Offset(width - 220.0, bitmap.height.toDouble() + 10), ui.Paint());
+
     final picture = recorder.endRecording();
     final img = await picture.toImage(width, height);
     final byteData = await img.toByteData(format: ui.ImageByteFormat.png);
@@ -83,6 +95,25 @@ class ImageFooterViewModel extends BaseViewModel {
 
     return imageFile?.uri?.path;
   }
+
+
+  Future<Uint8List> toQrImageData(String text) async {
+    try {
+      final image = await QrPainter(
+        data: text,
+        version: QrVersions.auto,
+        gapless: false,
+        color: Colors.black,
+        emptyColor: Colors.white,
+      ).toImage(200);
+      final a = await image.toByteData(format: ui.ImageByteFormat.png);
+      return a.buffer.asUint8List();
+    } catch (e) {
+      throw e;
+    }
+  }
+
+
 
   Future<File> writeImage(List<int> bytes, String fileName) async {
     final directory = await getApplicationDocumentsDirectory();
