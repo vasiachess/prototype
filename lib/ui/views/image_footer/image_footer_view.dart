@@ -6,6 +6,7 @@ import 'package:stacked/stacked.dart';
 import 'package:stackedprototype/constants.dart';
 import 'package:stackedprototype/ui/views/image_footer/image_footer_viewmodel.dart';
 
+
 class ImageFooterView extends StatelessWidget {
 
   const ImageFooterView({Key key}) : super(key: key);
@@ -15,7 +16,7 @@ class ImageFooterView extends StatelessWidget {
     return ViewModelBuilder<ImageFooterViewModel>.reactive(
       builder: (context, model, child) {
         return Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.grey[200],
           appBar: AppBar(
             backgroundColor: colorViolet,
             iconTheme: IconThemeData(
@@ -29,10 +30,8 @@ class ImageFooterView extends StatelessWidget {
             centerTitle: true,
           ),
           body: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-
               SizedBox(height: 24,),
               Container(
                 width: double.infinity,
@@ -57,7 +56,7 @@ class ImageFooterView extends StatelessWidget {
               ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(4)),
                   child: Image.file(File(model.imagePath ?? ''),
-                      width: 200, fit: BoxFit.fill)),
+                      width: 250, fit: BoxFit.fill)),
 
             ],
           ),
