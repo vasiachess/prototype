@@ -5,6 +5,8 @@ import 'dart:ui' as ui;
 import 'package:bitmap/bitmap.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_exif_plugin/flutter_exif_plugin.dart';
+import 'package:flutter_exif_plugin/tags.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -91,32 +93,24 @@ class ImageFooterViewModel extends BaseViewModel {
     final img = await picture.toImage(width, height);
     final byteData = await img.toByteData(format: ui.ImageByteFormat.png);
 
-    var imageFile = await writeImage(byteData.buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes), 'picture01.png');
+    Uint8List bytes = byteData.buffer.asUint8List(byteData.offsetInBytes);
 
-    return imageFile?.uri?.path;
+    final exif = FlutterExif.fromBytes(bytes);
+    await exif.setAttribute(TAG_CAMERA_OWNER_NAME, title);
+    await exif.setAttribute(TAG_USER_COMMENT, title);
+    await exif.setAttribute(TAG_SUBJECT_LOCATION, location);
+    await exif.setAttribute(TAG_DATETIME, date);
+    await exif.setAttribute(TAG_FILE_SOURCE, imageName);
+    await exif.saveAttributes();
+
+    var imageToRead = await exif.imageData;
+    var imageFile = await writeImage(imageToRead, 'pictureWithExif_01.jpg');
+
+    return imageFile.uri?.path;
   }
-
-
-  Future<Uint8List> toQrImageData(String text) async {
-    try {
-      final image = await QrPainter(
-        data: text,
-        version: QrVersions.auto,
-        gapless: false,
-        color: Colors.black,
-        emptyColor: Colors.white,
-      ).toImage(200);
-      final a = await image.toByteData(format: ui.ImageByteFormat.png);
-      return a.buffer.asUint8List();
-    } catch (e) {
-      throw e;
-    }
-  }
-
-
 
   Future<File> writeImage(List<int> bytes, String fileName) async {
-    final directory = await getApplicationDocumentsDirectory();
+    final directory = await getExternalStorageDirectory();
     final path = directory.path;
     var file = new File('$path/' + fileName);
     return await file.writeAsBytes(bytes);

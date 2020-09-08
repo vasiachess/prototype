@@ -41,6 +41,7 @@ dependencies:
   bitmap: ^0.0.6
   path_provider: ^1.6.9
   qr_flutter: ^3.2.0
+  flutter_exif_plugin: ^0.0.2
 
 dev_dependencies:
   flutter_test:
