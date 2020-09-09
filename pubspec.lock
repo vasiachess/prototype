@@ -8,6 +8,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.0.0"
+  aad_oauth:
+    dependency: "direct main"
+    description:
+      name: aad_oauth
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.9"
   analyzer:
     dependency: transitive
     description:
@@ -251,6 +258,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.8"
+  flutter_secure_storage:
+    dependency: transitive
+    description:
+      name: flutter_secure_storage
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.3.3"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -261,6 +275,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_webview_plugin:
+    dependency: transitive
+    description:
+      name: flutter_webview_plugin
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.11"
   get:
     dependency: transitive
     description:

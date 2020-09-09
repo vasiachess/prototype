@@ -1,3 +1,5 @@
+import 'package:aad_oauth/aad_oauth.dart';
+import 'package:aad_oauth/model/config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -64,6 +66,19 @@ class HomeViewModel extends BaseViewModel {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('sessionId', _sessionId);
     }
+  }
+
+  Future loginWithAzureAD(String tenantId, String clientId,) async {
+    final Config config = Config(
+        tenantId,
+        clientId,
+        'openid profile offline_access',
+        'https://login.live.com/oauth20_desktop.srf');
+
+    final AadOAuth oauth = AadOAuth(config);
+    await oauth.login();
+    _sessionId = await oauth.getAccessToken();
+    notifyListeners();
   }
 
 }

@@ -28,6 +28,14 @@ class HomeView extends StatelessWidget {
               },
               child: Text('Login', style: TextStyle(color: Colors.white),),
             ),
+            FlatButton(
+              padding: EdgeInsets.all(8),
+              color: Colors.blue,
+              onPressed: () {
+                model.loginWithAzureAD('27310a22-9182-45d6-a31b-3000633c63f0', '5d6db3ab-8bf9-4c62-aa7e-0db78a7970f3');
+              },
+              child: Text('Login with Azure AD', style: TextStyle(color: Colors.white),),
+            ),
             Text(model.sessionId),
             SizedBox(
               height: 16,
