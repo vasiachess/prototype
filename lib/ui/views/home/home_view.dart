@@ -40,6 +40,17 @@ class HomeView extends StatelessWidget {
             SizedBox(
               height: 16,
             ),
+            FlatButton(
+              padding: EdgeInsets.all(8),
+              color: Colors.blue,
+              onPressed: () {
+                model.navigateToChat();
+              },
+              child: Text('Chat', style: TextStyle(color: Colors.white),),
+            ),
+            SizedBox(
+              height: 24,
+            ),
             Center(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,

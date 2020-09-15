@@ -81,4 +81,8 @@ class HomeViewModel extends BaseViewModel {
     notifyListeners();
   }
 
+  void navigateToChat() async {
+    await _navigationService.navigateTo(Routes.chatView);
+  }
+
 }

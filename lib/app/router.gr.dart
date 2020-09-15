@@ -4,27 +4,28 @@
 // AutoRouteGenerator
 // **************************************************************************
 
-import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:stackedprototype/data/models/delivery_item.dart';
-import 'package:stackedprototype/data/models/order.dart';
-import 'package:stackedprototype/ui/views/change_password/change_password_view.dart';
-import 'package:stackedprototype/ui/views/edit_profile/edit_profile_view.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:stackedprototype/ui/views/home/home_view.dart';
-import 'package:stackedprototype/ui/views/image_footer/image_footer_view.dart';
-import 'package:stackedprototype/ui/views/more/more_view.dart';
 import 'package:stackedprototype/ui/views/post_list/post_list_view.dart';
-import 'package:stackedprototype/ui/views/purchase_delivery/purchase_delivery_view.dart';
 import 'package:stackedprototype/ui/views/purchase_orders/purchase_orders_view.dart';
 import 'package:stackedprototype/ui/views/purchase_orders_items/purchase_order_items_view.dart';
+import 'package:stackedprototype/data/models/order.dart';
+import 'package:stackedprototype/ui/views/purchase_delivery/purchase_delivery_view.dart';
+import 'package:stackedprototype/ui/views/supplier_delivery/supplier_purchase_delivery_view.dart';
 import 'package:stackedprototype/ui/views/scan/scan_view.dart';
+import 'package:stackedprototype/data/models/delivery_item.dart';
+import 'package:stackedprototype/ui/views/supplier_scan/supplier_scan_view.dart';
+import 'package:stackedprototype/ui/views/success/success_view.dart';
+import 'package:stackedprototype/ui/views/more/more_view.dart';
+import 'package:stackedprototype/ui/views/edit_profile/edit_profile_view.dart';
+import 'package:stackedprototype/ui/views/change_password/change_password_view.dart';
 import 'package:stackedprototype/ui/views/settings/settings_view.dart';
 import 'package:stackedprototype/ui/views/settings_language/settings_language_view.dart';
 import 'package:stackedprototype/ui/views/settings_save_mode/settings_save_mode_view.dart';
-import 'package:stackedprototype/ui/views/success/success_view.dart';
-import 'package:stackedprototype/ui/views/supplier_delivery/supplier_purchase_delivery_view.dart';
-import 'package:stackedprototype/ui/views/supplier_scan/supplier_scan_view.dart';
+import 'package:stackedprototype/ui/views/image_footer/image_footer_view.dart';
+import 'package:stackedprototype/ui/views/chat/chat_view.dart';
 
 abstract class Routes {
   static const homeViewRoute = '/';
@@ -44,6 +45,7 @@ abstract class Routes {
   static const settingsLanguageView = '/settings-language-view';
   static const settingsSaveModeView = '/settings-save-mode-view';
   static const imageFooterView = '/image-footer-view';
+  static const chatView = '/chat-view';
   static const all = {
     homeViewRoute,
     postListView,
@@ -61,6 +63,7 @@ abstract class Routes {
     settingsLanguageView,
     settingsSaveModeView,
     imageFooterView,
+    chatView,
   };
 }
 
@@ -238,6 +241,15 @@ class Router extends RouterBase {
           builder: (context) => ImageFooterView(key: typedArgs.key),
           settings: settings,
         );
+      case Routes.chatView:
+        if (hasInvalidArgs<ChatViewArguments>(args)) {
+          return misTypedArgsRoute<ChatViewArguments>(args);
+        }
+        final typedArgs = args as ChatViewArguments ?? ChatViewArguments();
+        return MaterialPageRoute<dynamic>(
+          builder: (context) => ChatView(key: typedArgs.key),
+          settings: settings,
+        );
       default:
         return unknownRoutePage(settings.name);
     }
@@ -347,4 +359,10 @@ class SettingsSaveModeViewArguments {
 class ImageFooterViewArguments {
   final Key key;
   ImageFooterViewArguments({this.key});
+}
+
+//ChatView arguments holder class
+class ChatViewArguments {
+  final Key key;
+  ChatViewArguments({this.key});
 }
