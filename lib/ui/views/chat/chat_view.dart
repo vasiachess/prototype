@@ -109,7 +109,9 @@ class ChatView extends StatelessWidget {
                     menuOffset: 10.0, // Offset value to show menuItem from the selected item
                     bottomOffsetHeight: 80.0, // Offset height to consider, for showing the menu item ( for example bottom navigation bar), so that the popup menu will be shown on top of selected item.
                     menuItems: <FocusedMenuItem>[
-                      FocusedMenuItem(title: Text("Delete",style: TextStyle(color: colorTextDark),),trailingIcon: Icon(Icons.delete,color: colorTextDark) ,onPressed: (){}),
+                      FocusedMenuItem(title: Text("Delete",style: TextStyle(color: colorTextDark),),trailingIcon: Icon(Icons.delete,color: colorTextDark) ,onPressed: (){
+                        model.showDeleteDialog();
+                      }),
                     ],
                     child: Container(
                       color: Colors.white,
