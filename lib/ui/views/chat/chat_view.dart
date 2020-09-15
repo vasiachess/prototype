@@ -4,14 +4,18 @@ import 'package:stacked/stacked.dart';
 import 'package:stackedprototype/constants.dart';
 import 'package:stackedprototype/ui/views/chat/chat_viewmodel.dart';
 
-
 class ChatView extends StatelessWidget {
-
   const ChatView({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     TextEditingController controller = new TextEditingController();
+    var _tapPosition;
+
+    void _storePosition(TapDownDetails details) {
+      _tapPosition = details.globalPosition;
+    }
+
     return ViewModelBuilder<ChatViewModel>.reactive(
       onModelReady: (model) {
         model.getChats();
@@ -34,10 +38,11 @@ class ChatView extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: 16.0),
                 child: InkWell(
-                  onTap: (){
-
-                  },
-                  child: Image.asset('assets/images/ic_create.png', width: 24,),
+                  onTap: () {},
+                  child: Image.asset(
+                    'assets/images/ic_create.png',
+                    width: 24,
+                  ),
                 ),
               ),
             ],
@@ -86,13 +91,33 @@ class ChatView extends StatelessWidget {
                   ),
                 ),
               ),
-
               Flexible(
                 child: ListView.builder(
                   shrinkWrap: true,
                   physics: ClampingScrollPhysics(),
                   itemCount: 15,
-                  itemBuilder: (context, index) => InkWell(
+                  itemBuilder: (context, index) => GestureDetector(
+                    onTapDown: _storePosition,
+                    onLongPress: () {
+                      final RenderBox overlay = Overlay.of(context).context.findRenderObject();
+                      showMenu(
+                        position: RelativeRect.fromRect(
+                            _tapPosition & const Size(40, 40), // smaller rect, the touch area
+                            Offset.zero & overlay.size // Bigger rect, the entire screen
+                            ),
+                        items: <PopupMenuEntry>[
+                          PopupMenuItem(
+                            child: Row(
+                              children: <Widget>[
+                                Icon(Icons.delete),
+                                Text("Delete"),
+                              ],
+                            ),
+                          )
+                        ],
+                        context: context,
+                      );
+                    },
                     onTap: () {
                       model.navigateChatMessages();
                     },
@@ -102,8 +127,13 @@ class ChatView extends StatelessWidget {
                         child: Row(
                           children: [
                             index == 0
-                                ? Image.asset('assets/images/ic_dot.png', width: 6,)
-                                : SizedBox(width: 6,),
+                                ? Image.asset(
+                                    'assets/images/ic_dot.png',
+                                    width: 6,
+                                  )
+                                : SizedBox(
+                                    width: 6,
+                                  ),
                             CircleAvatar(
                               radius: 30,
                               backgroundColor: Colors.white,
@@ -140,7 +170,6 @@ class ChatView extends StatelessWidget {
                   ),
                 ),
               ),
-
             ],
           ),
         );
