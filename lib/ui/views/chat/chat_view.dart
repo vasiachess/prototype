@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:focused_menu/focused_menu.dart';
+import 'package:focused_menu/modals.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stackedprototype/constants.dart';
 import 'package:stackedprototype/ui/views/chat/chat_viewmodel.dart';
@@ -96,74 +98,66 @@ class ChatView extends StatelessWidget {
                   shrinkWrap: true,
                   physics: ClampingScrollPhysics(),
                   itemCount: 15,
-                  itemBuilder: (context, index) => GestureDetector(
-                    onTapDown: _storePosition,
-                    onLongPress: () {
-                      final RenderBox overlay = Overlay.of(context).context.findRenderObject();
-                      showMenu(
-                        position: RelativeRect.fromRect(
-                            _tapPosition & const Size(40, 40), // smaller rect, the touch area
-                            Offset.zero & overlay.size // Bigger rect, the entire screen
-                            ),
-                        items: <PopupMenuEntry>[
-                          PopupMenuItem(
-                            child: Row(
-                              children: <Widget>[
-                                Icon(Icons.delete),
-                                Text("Delete"),
-                              ],
-                            ),
-                          )
-                        ],
-                        context: context,
-                      );
-                    },
-                    onTap: () {
-                      model.navigateChatMessages();
-                    },
-                    child: ListTile(
-                      leading: Container(
-                        width: 70,
-                        child: Row(
-                          children: [
-                            index == 0
-                                ? Image.asset(
-                                    'assets/images/ic_dot.png',
-                                    width: 6,
-                                  )
-                                : SizedBox(
-                                    width: 6,
-                                  ),
-                            CircleAvatar(
-                              radius: 30,
-                              backgroundColor: Colors.white,
-                              child: CircleAvatar(
-                                radius: 27,
-                                backgroundImage: AssetImage('assets/images/ic_order_success.png'),
+                  itemBuilder: (context, index) => FocusedMenuHolder(
+                    menuWidth: MediaQuery.of(context).size.width*0.50,
+                    blurSize: 1.0,
+                    menuItemExtent: 45,
+                    menuBoxDecoration: BoxDecoration(color: Colors.grey,borderRadius: BorderRadius.all(Radius.circular(15.0))),
+                    duration: Duration(milliseconds: 100),
+                    animateMenuItems: true,
+                    blurBackgroundColor: Colors.grey.withOpacity(0.2),
+                    menuOffset: 10.0, // Offset value to show menuItem from the selected item
+                    bottomOffsetHeight: 80.0, // Offset height to consider, for showing the menu item ( for example bottom navigation bar), so that the popup menu will be shown on top of selected item.
+                    menuItems: <FocusedMenuItem>[
+                      FocusedMenuItem(title: Text("Delete",style: TextStyle(color: colorTextDark),),trailingIcon: Icon(Icons.delete,color: colorTextDark) ,onPressed: (){}),
+                    ],
+                    child: Container(
+                      color: Colors.white,
+                      child: ListTile(
+                        onTap: (){},
+                        leading: Container(
+                          width: 70,
+                          child: Row(
+                            children: [
+                              index == 0
+                                  ? Image.asset(
+                                      'assets/images/ic_dot.png',
+                                      width: 6,
+                                    )
+                                  : SizedBox(
+                                      width: 6,
+                                    ),
+                              CircleAvatar(
+                                radius: 30,
+                                backgroundColor: Colors.white,
+                                child: CircleAvatar(
+                                  radius: 27,
+                                  backgroundImage: AssetImage('assets/images/ic_order_success.png'),
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      title: Text(
-                        'Martin Lubin',
-                        style: TextStyle(color: colorTextDark, fontSize: 16, fontWeight: FontWeight.w600),
-                      ),
-                      subtitle: Padding(
-                        padding: const EdgeInsets.only(top: 4.0),
-                        child: Text(
-                          'I\'ll inform you',
-                          style: TextStyle(
-                            color: index == 0 ? colorTextDark : colorTextLight,
-                            fontSize: 14,
+                            ],
                           ),
                         ),
-                      ),
-                      trailing: Text(
-                        '10:24 am',
-                        style: TextStyle(
-                          color: colorTextLight,
-                          fontSize: 14,
+                        title: Text(
+                          'Martin Lubin',
+                          style: TextStyle(color: colorTextDark, fontSize: 16, fontWeight: FontWeight.w600),
+                        ),
+                        subtitle: Padding(
+                          padding: const EdgeInsets.only(top: 4.0),
+                          child: Text(
+                            'I\'ll inform you',
+                            style: TextStyle(
+                              color: index == 0 ? colorTextDark : colorTextLight,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                        trailing: Text(
+                          '10:24 am',
+                          style: TextStyle(
+                            color: colorTextLight,
+                            fontSize: 14,
+                          ),
                         ),
                       ),
                     ),
